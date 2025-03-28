@@ -14,7 +14,7 @@ class ThemeChatApp extends StatelessWidget {
     title: 'Theme Chat Attitude',
   );
 
-  final ChatPage chatPage = const ChatPage(title: 'Theme Chat Chat');
+  final ChatPage chatPage = const ChatPage(title: 'Theme Chat');
 
   // This widget is the root of your application.
   @override
