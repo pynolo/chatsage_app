@@ -25,11 +25,53 @@ class _AttitudePageState extends State<AttitudePage> {
           children: [
             Text(widget.title),
             Text('Current attitude: ${AttitudePage.attitude}'),
+            SizedBox(
+              height: 200,
+              child: CupertinoPicker(
+                itemExtent: 40,
+                onSelectedItemChanged: (index) {
+                  AttitudePage.setAttitude(Attitude.values[index]);
+                  print(
+                    'Current attitude changed to: ${AttitudePage.attitude}',
+                  );
+                  setState(() {});
+                },
+                children:
+                    Attitude.values
+                        .map(
+                          (attitude) =>
+                              Center(child: Text(attitude.toString())),
+                        )
+                        .toList(),
+              ),
+            ),
+            const SizedBox(height: 20),
             CupertinoButton(
-              child: const Text('Set Attitude'),
+              child: const Text('Confirm Attitude'),
               onPressed: () {
-                AttitudePage.setAttitude(Attitude.kind);
-                setState(() {});
+                showCupertinoDialog(
+                  context: context,
+                  builder:
+                      (context) => CupertinoAlertDialog(
+                        title: const Text('Confirm Attitude'),
+                        content: Text(
+                          'Selected attitude: ${AttitudePage.attitude}',
+                        ),
+                        actions: [
+                          CupertinoDialogAction(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pushNamedAndRemoveUntil(
+                                context,
+                                '/chat',
+                                (route) => false,
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                );
               },
             ),
           ],
