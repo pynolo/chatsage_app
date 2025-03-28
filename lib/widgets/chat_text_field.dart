@@ -54,8 +54,8 @@ class _ChatTextFieldState extends State<ChatTextField> {
           const SizedBox(width: 8),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            child: const Icon(CupertinoIcons.arrow_up_circle_fill),
             onPressed: _handleSubmit,
+            child: const Icon(CupertinoIcons.arrow_up_circle_fill),
           ),
         ],
       ),

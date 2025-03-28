@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 //import 'package:flutter/material.dart';
+import 'enum.dart';
 import 'attitude_page.dart';
 import 'chat_page.dart';
+import 'theme_page.dart';
 
 void main() {
   runApp(const ThemeChatApp());
@@ -10,11 +12,13 @@ void main() {
 class ThemeChatApp extends StatelessWidget {
   const ThemeChatApp({super.key});
 
-  final AttitudePage attitudePage = const AttitudePage(
-    title: 'Theme Chat Attitude',
+  final AttitudePage attitudePage = const AttitudePage(title: 'Chat Attitude');
+  final ThemePage themePage = const ThemePage(title: 'Chat Theme');
+  final ChatPage chatPage = const ChatPage(
+    title: 'Theme Chat',
+    attitude: Attitude.kind,
+    assistantId: null,
   );
-
-  final ChatPage chatPage = const ChatPage(title: 'Theme Chat');
 
   // This widget is the root of your application.
   @override
@@ -25,6 +29,7 @@ class ThemeChatApp extends StatelessWidget {
       routes: {
         '/': (context) => attitudePage,
         '/attitude': (context) => attitudePage,
+        '/theme': (context) => themePage,
         '/chat': (context) => chatPage,
       },
 

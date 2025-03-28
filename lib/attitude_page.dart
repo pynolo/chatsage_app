@@ -64,7 +64,7 @@ class _AttitudePageState extends State<AttitudePage> {
                               Navigator.pop(context);
                               Navigator.pushNamedAndRemoveUntil(
                                 context,
-                                '/chat',
+                                '/theme',
                                 (route) => false,
                               );
                             },
