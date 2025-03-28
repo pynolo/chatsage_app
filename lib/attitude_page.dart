@@ -1,0 +1,40 @@
+import 'package:flutter/cupertino.dart';
+import 'enum.dart';
+
+class AttitudePage extends StatefulWidget {
+  const AttitudePage({super.key, required this.title});
+
+  final String title;
+  static Attitude _attitude = Attitude.kind;
+
+  static Attitude get attitude => _attitude;
+  static void setAttitude(Attitude value) => _attitude = value;
+
+  @override
+  State<AttitudePage> createState() => _AttitudePageState();
+}
+
+class _AttitudePageState extends State<AttitudePage> {
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(middle: Text('Theme Chat')),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(widget.title),
+            Text('Current attitude: ${AttitudePage.attitude}'),
+            CupertinoButton(
+              child: const Text('Set Attitude'),
+              onPressed: () {
+                AttitudePage.setAttitude(Attitude.kind);
+                setState(() {});
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
