@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-//import 'package:flutter/material.dart';
 import 'enum.dart';
 import 'attitude_page.dart';
 import 'chat_page.dart';

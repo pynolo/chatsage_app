@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:theme_chat/business/api_dto.dart';
 
 class FileContent {
   final String fileName;
@@ -10,4 +11,8 @@ class FileContent {
     required this.mimeType,
     required this.bytes,
   });
+
+  FileDto toFileDto() {
+    return FileDto(fileName: fileName, mimeType: mimeType, bytes: bytes);
+  }
 }

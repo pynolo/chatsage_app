@@ -1,18 +1,15 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:theme_chat/business/api_dto.dart';
+import 'package:theme_chat/constants.dart';
 
 class ApiConnector {
-  static const String _apiAssistantEndpoint =
-      'http://localhost:11434/chatbot/assistant';
-  static const String _apiChatEndpoint = 'http://localhost:11434/chatbot/chat';
-
   static Future<AssistantResponse> createAssistant(
     AssistantRequest request,
   ) async {
     print('calling createAssistant');
     final response = await http.post(
-      Uri.parse(_apiAssistantEndpoint),
+      Uri.parse(Constants.assistantEndpoint),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(request.toJson()),
     );
@@ -33,7 +30,7 @@ class ApiConnector {
       throw Exception('Assistant ID is required');
     }
     final response = await http.put(
-      Uri.parse('$_apiAssistantEndpoint/${request.assistantId}'),
+      Uri.parse('${Constants.assistantEndpoint}/${request.assistantId}'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(request.toJson()),
     );
@@ -50,7 +47,7 @@ class ApiConnector {
     print('calling chat');
     final response = await http.get(
       Uri.parse(
-        '$_apiChatEndpoint'
+        '${Constants.chatEndpoint}'
         '?assistantId=${request.assistantId}'
         '&query=${Uri.encodeComponent(request.query)}',
       ),

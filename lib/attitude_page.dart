@@ -49,24 +49,7 @@ class _AttitudePageState extends State<AttitudePage> {
             CupertinoButton(
               child: const Text('Confirm Attitude'),
               onPressed: () {
-                showCupertinoDialog(
-                  context: context,
-                  builder:
-                      (context) => CupertinoAlertDialog(
-                        title: const Text('Confirm Attitude'),
-                        content: Text(
-                          'Selected attitude: ${AttitudePage.attitude}',
-                        ),
-                        actions: [
-                          CupertinoDialogAction(
-                            child: const Text('OK'),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/theme');
-                            },
-                          ),
-                        ],
-                      ),
-                );
+                Navigator.pushNamed(context, '/theme');
               },
             ),
           ],
