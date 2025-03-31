@@ -61,12 +61,7 @@ class _AttitudePageState extends State<AttitudePage> {
                           CupertinoDialogAction(
                             child: const Text('OK'),
                             onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                '/theme',
-                                (route) => false,
-                              );
+                              Navigator.pushNamed(context, '/theme');
                             },
                           ),
                         ],

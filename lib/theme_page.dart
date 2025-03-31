@@ -23,33 +23,43 @@ class _ThemePageState extends State<ThemePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FileUploadButton(
-              label: 'Upload Image',
-              type: 'jpg',
+              label: 'Upload Document',
               onFileSelected: (file) => setState(() => _files.add(file)),
             ),
             const SizedBox(height: 8),
-            FileUploadButton(
-              label: 'Upload PDF',
-              type: 'pdf',
-              onFileSelected: (file) => setState(() => _files.add(file)),
+            SizedBox(
+              height: 200,
+              child:
+                  _files.isEmpty
+                      ? const Center(child: Text('No files uploaded'))
+                      : ListView.builder(
+                        itemCount: _files.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4,
+                              horizontal: 16,
+                            ),
+                            child: Text(
+                              _files[index].fileName,
+                              textAlign: TextAlign.center,
+                            ),
+                          );
+                        },
+                      ),
             ),
-            const SizedBox(height: 8),
-            FileUploadButton(
-              label: 'Upload Text File',
-              type: 'txt',
-              onFileSelected: (file) => setState(() => _files.add(file)),
-            ),
-            const SizedBox(height: 8),
-            FileUploadButton(
-              label: 'Upload Audio',
-              type: 'mp3',
-              onFileSelected: (file) => setState(() => _files.add(file)),
-            ),
-            const SizedBox(height: 8),
-            FileUploadButton(
-              label: 'Upload Video',
-              type: 'mp4',
-              onFileSelected: (file) => setState(() => _files.add(file)),
+            const SizedBox(height: 20),
+            CupertinoButton(
+              child: const Text('Confirm Theme'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat');
+                /* Navigator.pop(context);
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/chat',
+                  (route) => false,
+                ); */
+              },
             ),
           ],
         ),
