@@ -42,6 +42,7 @@ class _ChatAreaState extends State<ChatArea> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children:
                       widget.chatLines
+                          .where((line) => line.speaker != Speaker.prompt)
                           .map(
                             (line) => Padding(
                               padding: const EdgeInsets.fromLTRB(
@@ -55,7 +56,7 @@ class _ChatAreaState extends State<ChatArea> {
                                   Icon(
                                     line.speaker == Speaker.human
                                         ? CupertinoIcons.person_fill
-                                        : CupertinoIcons.chat_bubble_2_fill,
+                                        : CupertinoIcons.lightbulb_fill,
                                     color: CupertinoColors.systemGrey,
                                   ),
                                   const SizedBox(width: 8),

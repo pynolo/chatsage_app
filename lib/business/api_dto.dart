@@ -72,10 +72,16 @@ class ChatRequest {
   final String assistantId;
   final String query;
 
-  ChatRequest({required this.assistantId, required this.query});
+  ChatRequest({
+    required this.assistantId,
+    required this.query,
+  });
 
   Map<String, dynamic> toJson() {
-    return {'assistantId': assistantId, 'query': query};
+    return {
+      'assistantId': assistantId,
+      'query': query,
+    };
   }
 
   factory ChatRequest.fromJson(Map<String, dynamic> json) {

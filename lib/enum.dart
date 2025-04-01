@@ -11,7 +11,8 @@ enum Attitude {
 
 enum Speaker {
   human,
-  ai;
+  ai,
+  prompt;
 
   @override
   String toString() {

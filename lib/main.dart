@@ -23,8 +23,8 @@ class ThemeChatApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => AttitudePage(title: 'Theme Chat Attitude'),
-          '/theme': (context) => ThemePage(title: 'Theme Chat'),
+          '/': (context) => AttitudePage(title: 'Chat Attitude'),
+          '/theme': (context) => ThemePage(title: 'Chat Theme'),
           '/chat': (context) => ChatPage(title: 'Theme Chat'),
         },
       ),

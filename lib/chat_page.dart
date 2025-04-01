@@ -6,6 +6,7 @@ import 'business/api_connector.dart';
 import 'business/api_dto.dart';
 import 'state/app_state.dart';
 import 'enum.dart';
+import 'config.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key, required this.title});
@@ -22,21 +23,21 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     final appState = AppState();
     if (appState.chatLines.isEmpty) {
+      addPromptToChat(appState);
       appState.addChatLine('Welcome to Theme Chat!', Speaker.ai);
-      appState.addChatLine(
-        'My current attitude is: ${appState.attitude}',
-        Speaker.ai,
-      );
     }
   }
 
-  void _addMessage(String message) {
+  void _addMessage(String message) async {
     final appState = AppState();
     if (appState.assistantId != null) {
-      appState.addChatLine(message, Speaker.human);
-      ApiConnector.chat(
+      print("sending message to assistant: $message");
+      ChatResponse response = await ApiConnector.chat(
         ChatRequest(assistantId: appState.assistantId!, query: message),
       );
+      print("received response from assistant: ${response.answer}");
+      appState.addChatLine(message, Speaker.human);
+      appState.addChatLine(response.answer, Speaker.ai);
     }
   }
 
@@ -88,5 +89,15 @@ class _ChatPageState extends State<ChatPage> {
         );
       },
     );
+  }
+
+  void addPromptToChat(AppState appState) {
+    if (appState.attitude == Attitude.kind) {
+      appState.addChatLine(Config.attitudeKind, Speaker.prompt);
+    } else if (appState.attitude == Attitude.joking) {
+      appState.addChatLine(Config.attitudeJoking, Speaker.prompt);
+    } else if (appState.attitude == Attitude.offensive) {
+      appState.addChatLine(Config.attitudeOffensive, Speaker.prompt);
+    }
   }
 }
