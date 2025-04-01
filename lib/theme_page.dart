@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:theme_chat/enum.dart';
 import 'widgets/file_upload_button.dart';
 import 'business/file_content.dart';
 import 'business/api_connector.dart';
 import 'business/api_dto.dart';
-import 'chat_page.dart';
+import 'state/app_state.dart';
 
 class ThemePage extends StatefulWidget {
   const ThemePage({super.key, required this.title});
@@ -21,7 +20,38 @@ class _ThemePageState extends State<ThemePage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(middle: Text('Theme Chat')),
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: CupertinoColors.systemGrey6,
+        middle: Text(widget.title),
+        trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: const Text('Next'),
+          onPressed: () async {
+            showCupertinoDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) => const CupertinoActivityIndicator(),
+            );
+
+            AssistantResponse assistantResponse =
+                await ApiConnector.createAssistant(
+              AssistantRequest(
+                files: _files.map((file) => file.toFileDto()).toList(),
+              ),
+            );
+            print('assistantId: ${assistantResponse.assistantId}');
+            AppState().setAssistantId(assistantResponse.assistantId);
+            Navigator.of(context).pop(); // Dismiss loading indicator
+            Navigator.pushNamed(
+              context,
+              '/chat',
+              arguments: <String, String>{
+                'title': widget.title,
+              },
+            );
+          },
+        ),
+      ),
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -51,35 +81,6 @@ class _ThemePageState extends State<ThemePage> {
                         );
                       },
                     ),
-            ),
-            const SizedBox(height: 20),
-            CupertinoButton(
-              child: const Text('Confirm Theme'),
-              onPressed: () async {
-                showCupertinoDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (context) => const CupertinoActivityIndicator(),
-                );
-
-                AssistantResponse assistantResponse =
-                    await ApiConnector.createAssistant(
-                  AssistantRequest(
-                    files: _files.map((file) => file.toFileDto()).toList(),
-                  ),
-                );
-                print(assistantResponse);
-                Navigator.of(context).pop(); // Dismiss loading indicator
-                Navigator.pushReplacementNamed(
-                  context,
-                  '/chat',
-                  arguments: ChatPage(
-                    title: 'Theme Chat',
-                    attitude: Attitude.kind,
-                    assistantId: assistantResponse.assistantId,
-                  ),
-                );
-              },
             ),
           ],
         ),

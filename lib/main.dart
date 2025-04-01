@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'enum.dart';
-import 'attitude_page.dart';
-import 'chat_page.dart';
-import 'theme_page.dart';
+import 'package:provider/provider.dart';
+import 'package:theme_chat/attitude_page.dart';
+import 'package:theme_chat/theme_page.dart';
+import 'package:theme_chat/chat_page.dart';
+import 'state/app_state.dart';
 
 void main() {
   runApp(const ThemeChatApp());
@@ -11,28 +12,22 @@ void main() {
 class ThemeChatApp extends StatelessWidget {
   const ThemeChatApp({super.key});
 
-  final AttitudePage attitudePage = const AttitudePage(title: 'Chat Attitude');
-  final ThemePage themePage = const ThemePage(title: 'Chat Theme');
-  final ChatPage chatPage = const ChatPage(
-    title: 'Theme Chat',
-    attitude: Attitude.kind,
-    assistantId: null,
-  );
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'Theme Chat',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => attitudePage,
-        '/attitude': (context) => attitudePage,
-        '/theme': (context) => themePage,
-        '/chat': (context) => chatPage,
-      },
-
-      //debugShowCheckedModeBanner: false,
+    return ChangeNotifierProvider(
+      create: (context) => AppState(),
+      child: CupertinoApp(
+        title: 'Theme Chat',
+        theme: const CupertinoThemeData(
+          primaryColor: CupertinoColors.systemBlue,
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => AttitudePage(title: 'Theme Chat Attitude'),
+          '/theme': (context) => ThemePage(title: 'Theme Chat'),
+          '/chat': (context) => ChatPage(title: 'Theme Chat'),
+        },
+      ),
     );
   }
 }
