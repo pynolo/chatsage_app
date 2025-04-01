@@ -32,11 +32,11 @@ class _ChatPageState extends State<ChatPage> {
     final appState = AppState();
     if (appState.assistantId != null) {
       print("sending message to assistant: $message");
+      appState.addChatLine(message, Speaker.human);
       ChatResponse response = await ApiConnector.chat(
         ChatRequest(assistantId: appState.assistantId!, query: message),
       );
       print("received response from assistant: ${response.answer}");
-      appState.addChatLine(message, Speaker.human);
       appState.addChatLine(response.answer, Speaker.ai);
     }
   }
