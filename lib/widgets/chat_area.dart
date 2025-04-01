@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:theme_chat/state/app_state.dart';
+import 'package:theme_chat/enum.dart';
 
 class ChatArea extends StatefulWidget {
   const ChatArea({super.key, required this.chatLines});
 
-  final List<String> chatLines;
+  final List<ChatLine> chatLines;
 
   @override
   State<ChatArea> createState() => _ChatAreaState();
@@ -48,7 +50,18 @@ class _ChatAreaState extends State<ChatArea> {
                                 8.0,
                                 4.0,
                               ),
-                              child: Text(line),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    line.speaker == Speaker.human
+                                        ? CupertinoIcons.person_fill
+                                        : CupertinoIcons.chat_bubble_2_fill,
+                                    color: CupertinoColors.systemGrey,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(child: Text(line.message)),
+                                ],
+                              ),
                             ),
                           )
                           .toList(),

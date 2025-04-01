@@ -8,11 +8,11 @@ class AppState extends ChangeNotifier {
 
   Attitude _attitude = Attitude.kind;
   String? _assistantId;
-  final List<String> _chatLines = [];
+  final List<ChatLine> _chatLines = [];
 
   Attitude get attitude => _attitude;
   String? get assistantId => _assistantId;
-  List<String> get chatLines => _chatLines;
+  List<ChatLine> get chatLines => _chatLines;
 
   void setAttitude(Attitude value) {
     _attitude = value;
@@ -24,8 +24,8 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addChatLine(String message) {
-    _chatLines.add(message);
+  void addChatLine(String message, Speaker speaker) {
+    _chatLines.add(ChatLine(message: message, speaker: speaker));
     notifyListeners();
   }
 
@@ -33,4 +33,11 @@ class AppState extends ChangeNotifier {
     _chatLines.clear();
     notifyListeners();
   }
+}
+
+class ChatLine {
+  final String message;
+  final Speaker speaker;
+
+  ChatLine({required this.message, required this.speaker});
 }

@@ -5,12 +5,10 @@ import 'widgets/chat_text_field.dart';
 import 'business/api_connector.dart';
 import 'business/api_dto.dart';
 import 'state/app_state.dart';
+import 'enum.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({
-    super.key,
-    required this.title,
-  });
+  const ChatPage({super.key, required this.title});
 
   final String title;
 
@@ -24,15 +22,18 @@ class _ChatPageState extends State<ChatPage> {
     super.initState();
     final appState = AppState();
     if (appState.chatLines.isEmpty) {
-      appState.addChatLine('Welcome to Theme Chat!');
-      appState.addChatLine('Your current attitude is: ${appState.attitude}');
+      appState.addChatLine('Welcome to Theme Chat!', Speaker.ai);
+      appState.addChatLine(
+        'My current attitude is: ${appState.attitude}',
+        Speaker.ai,
+      );
     }
   }
 
   void _addMessage(String message) {
     final appState = AppState();
     if (appState.assistantId != null) {
-      appState.addChatLine(message);
+      appState.addChatLine(message, Speaker.human);
       ApiConnector.chat(
         ChatRequest(assistantId: appState.assistantId!, query: message),
       );

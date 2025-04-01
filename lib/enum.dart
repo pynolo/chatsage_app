@@ -8,3 +8,13 @@ enum Attitude {
     return name;
   }
 }
+
+enum Speaker {
+  human,
+  ai;
+
+  @override
+  String toString() {
+    return name;
+  }
+}
