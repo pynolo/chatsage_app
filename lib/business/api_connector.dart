@@ -8,6 +8,9 @@ class ApiConnector {
     AssistantRequest request,
   ) async {
     if (!Config.test) {
+      if (request.files.isEmpty) {
+        throw Exception('Files are required');
+      }
       // Real call
       print('calling createAssistant');
       final response = await http.post(
@@ -32,6 +35,9 @@ class ApiConnector {
     AssistantRequest request,
   ) async {
     if (!Config.test) {
+      if (request.files.isEmpty) {
+        throw Exception('Files are required');
+      }
       // Real call
       print('calling updateAssistant');
       if (request.assistantId == null) {
@@ -58,6 +64,9 @@ class ApiConnector {
 
   static Future<ChatResponse> chat(ChatRequest request) async {
     if (!Config.test) {
+      if (request.query.isEmpty) {
+        throw Exception('Query is required');
+      }
       // Real call
       print('calling chat');
       final response = await http.get(

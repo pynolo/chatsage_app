@@ -21,14 +21,40 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final appState = AppState();
+      if (appState.chatLines.isEmpty) {
+        _sendPrompt();
+      }
+    });
+  }
+
+  void _sendPrompt() async {
     final appState = AppState();
-    if (appState.chatLines.isEmpty) {
-      addPromptToChat(appState);
-      appState.addChatLine('Welcome to Theme Chat!', Speaker.ai);
+    String prompt;
+    switch (appState.attitude) {
+      case Attitude.kind:
+        prompt = Config.attitudeKind;
+        break;
+      case Attitude.joking:
+        prompt = Config.attitudeJoking;
+        break;
+      default:
+        prompt = Config.attitudeOffensive;
+        break;
+    }
+    if (appState.assistantId != null) {
+      print("sending prompt to assistant: $prompt");
+      appState.addChatLine(prompt, Speaker.prompt);
+      ChatResponse response = await ApiConnector.chat(
+        ChatRequest(assistantId: appState.assistantId!, query: prompt),
+      );
+      print("received response from assistant: ${response.answer}");
+      appState.addChatLine(response.answer, Speaker.ai);
     }
   }
 
-  void _addMessage(String message) async {
+  void _sendMessage(String message) async {
     final appState = AppState();
     if (appState.assistantId != null) {
       print("sending message to assistant: $message");
@@ -79,7 +105,7 @@ class _ChatPageState extends State<ChatPage> {
                 ChatTextField(
                   onSubmitted: (value) {
                     if (value.isNotEmpty) {
-                      _addMessage(value);
+                      _sendMessage(value);
                     }
                   },
                 ),
@@ -89,15 +115,5 @@ class _ChatPageState extends State<ChatPage> {
         );
       },
     );
-  }
-
-  void addPromptToChat(AppState appState) {
-    if (appState.attitude == Attitude.kind) {
-      appState.addChatLine(Config.attitudeKind, Speaker.prompt);
-    } else if (appState.attitude == Attitude.joking) {
-      appState.addChatLine(Config.attitudeJoking, Speaker.prompt);
-    } else if (appState.attitude == Attitude.offensive) {
-      appState.addChatLine(Config.attitudeOffensive, Speaker.prompt);
-    }
   }
 }
