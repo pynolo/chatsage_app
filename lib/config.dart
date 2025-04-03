@@ -1,11 +1,11 @@
 class Config {
   //TESTING
-  static const bool test = true; // TODO: set to false when using the real API
+  static const bool test = false; // TODO: set to false when using the real API
 
   //API
   static const String apiAssistantEndpoint =
-      'http://localhost:11434/chatbot/assistant';
-  static const String apiChatEndpoint = 'http://localhost:11434/chatbot/chat';
+      'http://192.168.1.6:8080/chatbot/assistant';
+  static const String apiChatEndpoint = 'http://192.168.1.6:8080/chatbot/chat';
 
   //ATTITUDE PROMPT
   static const String attitudeKind =

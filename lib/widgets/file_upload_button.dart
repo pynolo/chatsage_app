@@ -45,7 +45,7 @@ class FileUploadButton extends StatelessWidget {
           FileContent(
             fileName: file.name,
             mimeType: file.extension ?? 'application/octet-stream',
-            bytes: file.bytes!,
+            content: file.bytes!,
           ),
         );
       }
@@ -84,7 +84,7 @@ class FileUploadButton extends StatelessWidget {
         FileContent(
           fileName: file.name,
           mimeType: file.extension ?? 'application/octet-stream',
-          bytes: file.bytes!,
+          content: file.bytes!,
         ),
       );
     }

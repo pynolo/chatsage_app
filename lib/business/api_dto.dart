@@ -27,19 +27,19 @@ class AssistantRequest {
 class FileDto {
   final String fileName;
   final String mimeType;
-  final Uint8List bytes;
+  final Uint8List content;
 
   FileDto({
     required this.fileName,
     required this.mimeType,
-    required this.bytes,
+    required this.content,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'fileName': fileName,
       'mimeType': mimeType,
-      'bytes': base64Encode(bytes),
+      'content': base64Encode(content),
     };
   }
 
@@ -47,7 +47,7 @@ class FileDto {
     return FileDto(
       fileName: json['fileName'] as String,
       mimeType: json['mimeType'] as String,
-      bytes: base64Decode(json['bytes'] as String),
+      content: base64Decode(json['content'] as String),
     );
   }
 }
@@ -72,16 +72,10 @@ class ChatRequest {
   final String assistantId;
   final String query;
 
-  ChatRequest({
-    required this.assistantId,
-    required this.query,
-  });
+  ChatRequest({required this.assistantId, required this.query});
 
   Map<String, dynamic> toJson() {
-    return {
-      'assistantId': assistantId,
-      'query': query,
-    };
+    return {'assistantId': assistantId, 'query': query};
   }
 
   factory ChatRequest.fromJson(Map<String, dynamic> json) {

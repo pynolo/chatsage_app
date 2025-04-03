@@ -18,6 +18,7 @@ class ApiConnector {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(request.toJson()),
       );
+      print('response: ${response.body}');
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         return AssistantResponse.fromJson(responseData);
@@ -69,15 +70,13 @@ class ApiConnector {
       }
       // Real call
       print('calling chat');
-      final response = await http.get(
-        Uri.parse(
-          '${Config.apiChatEndpoint}'
-          '?assistantId=${request.assistantId}'
-          '&query=${Uri.encodeComponent(request.query)}',
-        ),
+      final response = await http.post(
+        Uri.parse('${Config.apiChatEndpoint}'),
         headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(request.toJson()),
       );
 
+      print('response: ${response.body}');
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         return ChatResponse.fromJson(responseData);
