@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:theme_chat/business/api_dto.dart';
-import 'package:theme_chat/config.dart';
+import 'package:chatsage_app/business/api_dto.dart';
+import 'package:chatsage_app/config.dart';
 
 class ApiConnector {
   static Future<AssistantResponse> createAssistant(

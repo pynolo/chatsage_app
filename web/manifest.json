@@ -1,6 +1,6 @@
 {
-    "name": "theme_chat",
-    "short_name": "theme_chat",
+    "name": "chatsage_app",
+    "short_name": "chatsage_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

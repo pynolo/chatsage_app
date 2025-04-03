@@ -27,7 +27,7 @@ class _AttitudePageState extends State<AttitudePage> {
             Navigator.push(
               context,
               CupertinoPageRoute(
-                builder: (context) => ThemePage(title: 'Theme Chat'),
+                builder: (context) => ThemePage(title: 'Chat Theme'),
               ),
             );
           },

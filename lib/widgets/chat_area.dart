@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:theme_chat/state/app_state.dart';
-import 'package:theme_chat/enum.dart';
+import 'package:chatsage_app/state/app_state.dart';
+import 'package:chatsage_app/enum.dart';
 
 class ChatArea extends StatefulWidget {
   const ChatArea({super.key, required this.chatLines});

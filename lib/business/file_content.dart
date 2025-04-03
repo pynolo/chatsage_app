@@ -1,5 +1,5 @@
 import 'dart:typed_data';
-import 'package:theme_chat/business/api_dto.dart';
+import 'package:chatsage_app/business/api_dto.dart';
 
 class FileContent {
   final String fileName;
